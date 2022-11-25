@@ -1,0 +1,7 @@
+name: Pluginjam
+version: '${version}'
+main: com.pluginjam.Pluginjam
+api-version: 1.19
+authors: [ HiWhatName, earomc ]
+description: The more you have, the worse it is
+website: https://www.youtube.com/watch?v=dQw4w9WgXcQ
