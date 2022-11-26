@@ -10,6 +10,7 @@ import com.pluginjam.listener.JoinListener;
 import com.pluginjam.util.Radio;
 import com.pluginjam.util.rareplayermoveevent.RarePlayerMoveEventCaller;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -44,7 +45,7 @@ public final class PluginJam extends JavaPlugin {
         Bukkit.unloadWorld("world_the_end", false);
         System.gc(); // Clean up garbage left from the other dimensions
 
-        logger.info(LoadedWorldsCommand.getLoadedWorlds());
+        logger.info(LoadedWorldsCommand.getLoadedWorlds().replace("\n", " ").replace("$e", ""));
 
 
         //Command registration.
