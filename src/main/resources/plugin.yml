@@ -9,5 +9,12 @@ description: The more you have, the worse it is
 website: https://www.youtube.com/watch?v=dQw4w9WgXcQ
 commands:
   gendungeon:
-    description: testing
+    description: Used for testing purposes only
     usage: /<command>
+  toggleradio:
+    description: Toggles the radio!
+    usage: /<command>
+permissions:
+  dungeon.gencommand:
+    description: Allows the usage of /gendungeon
+    default: op

@@ -1,6 +1,8 @@
 package com.pluginjam;
 
 import com.pluginjam.commands.GenDungeonCommand;
+import com.pluginjam.commands.ToggleRadioCommand;
+import com.pluginjam.core.WeightManager;
 import com.pluginjam.listener.JoinListener;
 import com.pluginjam.util.Radio;
 import com.pluginjam.util.rareplayermoveevent.RarePlayerMoveEventCaller;
@@ -26,10 +28,12 @@ public final class PluginJam extends JavaPlugin {
 
         //Command registration.
         this.getCommand("gendungeon").setExecutor(new GenDungeonCommand());
+        this.getCommand("toggleradio").setExecutor(new ToggleRadioCommand());
 
         //Events
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
         getServer().getPluginManager().registerEvents(new Radio(), this);
+        getServer().getPluginManager().registerEvents(new WeightManager(), this);
 
         //Check for dependencies
         if (!Bukkit.getPluginManager().isPluginEnabled("NoteBlockAPI") || !Bukkit.getPluginManager().isPluginEnabled("FastAsyncWorldEdit")) {
