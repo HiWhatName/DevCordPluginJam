@@ -1,23 +1,18 @@
 package com.pluginjam;
 
 import com.pluginjam.commands.GenDungeonCommand;
+import com.pluginjam.listener.JoinListener;
+import com.pluginjam.util.Radio;
 import com.pluginjam.util.rareplayermoveevent.RarePlayerMoveEventCaller;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.logging.Logger;
 
 public final class PluginJam extends JavaPlugin {
     public static PluginJam instance;
     Logger logger = super.getLogger();
-    boolean NoteBlockAPI = true;
 
     @Override
     public void onEnable() {
@@ -25,14 +20,23 @@ public final class PluginJam extends JavaPlugin {
         RarePlayerMoveEventCaller rarePlayerMoveEventCaller = new RarePlayerMoveEventCaller(this, 5);
 
         //copySchemsToFolder();
+
+        //Radio stuff
+        Radio radio = new Radio();
+
         //Command registration.
         this.getCommand("gendungeon").setExecutor(new GenDungeonCommand());
 
-        if (!Bukkit.getPluginManager().isPluginEnabled("NoteBlockAPI")) {
+        //Events
+        getServer().getPluginManager().registerEvents(new JoinListener(), this);
+        getServer().getPluginManager().registerEvents(new Radio(), this);
+
+        //Check for dependencies
+        if (!Bukkit.getPluginManager().isPluginEnabled("NoteBlockAPI") || !Bukkit.getPluginManager().isPluginEnabled("FastAsyncWorldEdit")) {
             getLogger().severe("-----------------------------------------------------");
-            getLogger().severe("*** NoteBlockAPI is not installed or not enabled. ***");
+            getLogger().severe("*** NoteBlockAPI/FWE are not installed/enabled    ***");
             getLogger().severe("------------------------------------------------------");
-            NoteBlockAPI = false;
+            Bukkit.getServer().shutdown(); //rip
         }
 
     }
@@ -48,7 +52,7 @@ public final class PluginJam extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        logger.info("Goodbye ;)");
     }
 
     public static PluginJam getInstance() {
