@@ -28,6 +28,8 @@ dependencies {
     implementation(platform("com.intellectualsites.bom:bom-1.18.x:1.19"))
     compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Core")
     compileOnly("com.github.koca2000:NoteBlockAPI:-SNAPSHOT")
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
 }
 
 def targetJavaVersion = 17
