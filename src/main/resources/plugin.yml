@@ -17,7 +17,13 @@ commands:
   rickroll:
     description: Will never ever give up any player
     usage: /<command> player
+  loadedworlds:
+    description: List all currently loaded worlds.
+    usage: /<command>
 permissions:
   dungeon.gencommand:
     description: Allows the usage of /gendungeon
+    default: op
+  dungeon.loaded:
+    description: Allows the usage of /loadedworlds
     default: op

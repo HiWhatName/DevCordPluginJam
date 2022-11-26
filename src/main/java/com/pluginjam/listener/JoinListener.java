@@ -6,6 +6,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class JoinListener implements Listener {
 
@@ -14,6 +16,7 @@ public class JoinListener implements Listener {
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerJoin(PlayerJoinEvent e){
         Player p = e.getPlayer();
+        p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 35, 1));
         p.setBedSpawnLocation(SpawnPoint, true);
         p.spawnParticle(Particle.CLOUD, p.getLocation(), 320);
         if(!(p.hasPlayedBefore())) {
