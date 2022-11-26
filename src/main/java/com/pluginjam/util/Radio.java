@@ -15,7 +15,7 @@ public class Radio implements Listener {
     private Playlist backgroundMusic;
     private RadioSongPlayer radioSongPlayer;
 
-    public void Radio(){
+    public Radio(){
         //Todo: Iterate through songs dir
         Song song = NBSDecoder.parse(PluginJam.getInstance().getResource("nbs/music/harrypotter.nbs"));
 
@@ -26,11 +26,6 @@ public class Radio implements Listener {
     @EventHandler
     void onPlayerJoin(PlayerJoinEvent e){
         Player p = e.getPlayer();
-
-        Song song = NBSDecoder.parse(PluginJam.getInstance().getResource("nbs/music/harrypotter.nbs"));
-
-        this.backgroundMusic = new Playlist(song);
-        this.radioSongPlayer = new RadioSongPlayer(backgroundMusic);
 
         radioSongPlayer.addPlayer(p);
         //radioSongPlayer.setPlaying(true);
