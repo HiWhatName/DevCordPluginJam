@@ -33,9 +33,7 @@ public class WeightManager implements Listener {
     public void onArmorEquip(InventoryClickEvent event) {
         Player p = (Player) event.getWhoClicked();
         armorWeights.put(p.getUniqueId(), calculateArmorWeight(p));
-        p.setWalkSpeed(defaultPlayerSpeed - armorWeights.get(p.getUniqueId()));
-        p.spigot().sendMessage(ChatMessageType.ACTION_BAR,
-                TextComponent.fromLegacyText(ChatColor.RED + String.valueOf(Math.round(armorWeights.get(p.getUniqueId()) * 1000 )) + "Kg"));
+       applyDebuffs(p);
     }
 
     private float calculateArmorWeight(Player p){
@@ -53,11 +51,21 @@ public class WeightManager implements Listener {
         if(!(e.getItem() == null)) {
             if (getWeight(e.getItem()) > 0) {
                 armorWeights.put(p.getUniqueId(), calculateArmorWeight(p));
-                p.spigot().sendMessage(ChatMessageType.ACTION_BAR,
-                        TextComponent.fromLegacyText(ChatColor.RED + String.valueOf(Math.round(armorWeights.get(p.getUniqueId()) * 1000)) + "Kg"));
-                p.setWalkSpeed(defaultPlayerSpeed - armorWeights.get(p.getUniqueId()));
+               applyDebuffs(p);
             }
         }
+    }
+    void applyDebuffs(Player p){
+        int weight = Math.round(armorWeights.get(p.getUniqueId()) * 1000);
+        if(weight > 40){
+            p.spigot().sendMessage(ChatMessageType.ACTION_BAR,
+                    TextComponent.fromLegacyText(ChatColor.RED + String.valueOf(weight) + "Kg"));
+            p.sendMessage(ChatColor.YELLOW + "Too heavy! More/heavier armor isn't always better!");
+        }else {
+            p.spigot().sendMessage(ChatMessageType.ACTION_BAR,
+                    TextComponent.fromLegacyText(ChatColor.YELLOW + String.valueOf(weight) + "Kg"));
+        }
+        p.setWalkSpeed(defaultPlayerSpeed - armorWeights.get(p.getUniqueId()));
     }
 
     float getWeight(ItemStack armorPiece){
