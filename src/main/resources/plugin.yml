@@ -4,6 +4,7 @@ main: com.pluginjam.PluginJam
 api-version: 1.19
 authors: [ HiWhatName, earomc ]
 softdepend: [NoteBlockAPI]
+depend: [FastAsyncWorldEdit]
 description: The more you have, the worse it is
 website: https://www.youtube.com/watch?v=dQw4w9WgXcQ
 commands:
