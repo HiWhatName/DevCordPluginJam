@@ -13,6 +13,7 @@ import com.sk89q.worldedit.function.operation.Operations;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.session.ClipboardHolder;
+import com.sk89q.worldedit.world.World;
 import org.bukkit.Location;
 
 import java.io.File;
@@ -25,9 +26,12 @@ public class DungeonPieceGenerator {
     public static void generateDungeonPiece(DungeonPiece piece, Location location) {
 
         Clipboard clipboard = piece.getClipboard();
+        WorldEdit worldEdit = WorldEdit.getInstance();
+        World bukkitWorld = BukkitAdapter.adapt(location.getWorld());
 
         //Paste
-        try (EditSession editSession = WorldEdit.getInstance().newEditSession(BukkitAdapter.adapt(location.getWorld()))) { //sus
+
+        try (EditSession editSession = worldEdit.newEditSession(bukkitWorld)) { //sus
             Operation operation = new ClipboardHolder(clipboard)
                     .createPaste(editSession)
                     .to(BlockVector3.at(location.getX(), location.getY(), location.getZ()))
@@ -36,8 +40,8 @@ public class DungeonPieceGenerator {
             Operations.complete(operation);
 
         }
-        try (EditSession editSession = WorldEdit.getInstance().newEditSession(BukkitAdapter.adapt(location.getWorld()))){
-
+        try (EditSession editSession = worldEdit.newEditSession(bukkitWorld)){
+            //TODO: Replace sponges
         }
 
 

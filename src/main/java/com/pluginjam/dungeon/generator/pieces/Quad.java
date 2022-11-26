@@ -10,9 +10,8 @@ import java.io.File;
 
 public class Quad extends DungeonPiece {
 
-    File schem = new File(PluginJam.getInstance().getDataFolder() + "/schem/quad.schem");
-
+    // +
     public Quad(){
-        ClipboardFormat format = ClipboardFormats.findByFile(schem);
+        super("quad");
     }
 }

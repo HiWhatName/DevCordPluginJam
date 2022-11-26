@@ -1,5 +1,6 @@
 package com.pluginjam.dungeon.generator;
 
+import com.pluginjam.PluginJam;
 import com.sk89q.worldedit.extent.clipboard.Clipboard;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats;
@@ -12,16 +13,24 @@ import java.io.IOException;
 
 public abstract class DungeonPiece {
 
-    public File schem;
-    public Clipboard clipboard;
-    ClipboardFormat format;
-    public Clipboard getClipboard(){
-        Clipboard clipboard = null;
+    private final File schem;
+    private Clipboard clipboard;
+    protected ClipboardFormat format;
+
+    public DungeonPiece(String name) {
+        this(new File(PluginJam.getInstance().getDataFolder() + "/schem/" + name + ".schem"));
+    }
+
+    public DungeonPiece(File schem) {
+        this.schem = schem;
+        this.format = ClipboardFormats.findByFile(schem);
+    }
+
+    public Clipboard getClipboard() {
+        Clipboard clipboard;
         try (ClipboardReader reader = format.getReader(new FileInputStream(schem))) {
             clipboard = reader.read();
             System.out.println(clipboard);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
