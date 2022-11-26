@@ -1,7 +1,12 @@
-name: Pluginjam
+name: PluginJam
 version: '${version}'
-main: com.pluginjam.Pluginjam
+main: com.pluginjam.PluginJam
 api-version: 1.19
 authors: [ HiWhatName, earomc ]
+softdepend: [NoteBlockAPI]
 description: The more you have, the worse it is
 website: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+commands:
+  gendungeon:
+    description: testing
+    usage: /<command>

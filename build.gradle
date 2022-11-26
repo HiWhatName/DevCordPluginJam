@@ -15,10 +15,19 @@ repositories {
         name = 'sonatype'
         url = 'https://oss.sonatype.org/content/groups/public/'
     }
+    maven {
+        url = uri("https://repo.papermc.io/repository/maven-public/")
+    }
+    maven {
+        url 'https://jitpack.io'
+    }
 }
 
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.19.2-R0.1-SNAPSHOT'
+    implementation(platform("com.intellectualsites.bom:bom-1.18.x:1.19"))
+    compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Core")
+    compileOnly("com.github.koca2000:NoteBlockAPI:-SNAPSHOT")
 }
 
 def targetJavaVersion = 17
