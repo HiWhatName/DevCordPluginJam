@@ -1,5 +1,6 @@
 package com.pluginjam.util;
 
+import com.pluginjam.PluginJam;
 import com.xxmicloxx.NoteBlockAPI.model.Playlist;
 import com.xxmicloxx.NoteBlockAPI.model.Song;
 import com.xxmicloxx.NoteBlockAPI.songplayer.RadioSongPlayer;
@@ -9,21 +10,30 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import java.io.File;
-
 public class Radio implements Listener {
-    public void loadNBS(){
+
+    private Playlist backgroundMusic;
+    private RadioSongPlayer radioSongPlayer;
+
+    public void Radio(){
         //Todo: Iterate through songs dir
+        Song song = NBSDecoder.parse(PluginJam.getInstance().getResource("nbs/music/harrypotter.nbs"));
+
+        this.backgroundMusic = new Playlist(song);
+        this.radioSongPlayer = new RadioSongPlayer(backgroundMusic);
     }
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent e){
+    void onPlayerJoin(PlayerJoinEvent e){
         Player p = e.getPlayer();
-        Song song = NBSDecoder.parse(new File(PluginJam.getInstance().getDataFolder() + "/nbs/harrypotter.nbs"));
-        RadioSongPlayer radioSongPlayer = new RadioSongPlayer(song);
-        Playlist playlist = new Playlist(song);
+
+        Song song = NBSDecoder.parse(PluginJam.getInstance().getResource("nbs/music/harrypotter.nbs"));
+
+        this.backgroundMusic = new Playlist(song);
+        this.radioSongPlayer = new RadioSongPlayer(backgroundMusic);
+
         radioSongPlayer.addPlayer(p);
-        radioSongPlayer.setPlaying(true);
+        //radioSongPlayer.setPlaying(true);
 
         //TODO: Change spawn location to start room, start nbs playback.
     }
