@@ -14,6 +14,9 @@ commands:
   toggleradio:
     description: Toggles the radio!
     usage: /<command>
+  rickroll:
+    description: Will never ever give up any player
+    usage: /<command> player
 permissions:
   dungeon.gencommand:
     description: Allows the usage of /gendungeon
