@@ -1,10 +1,16 @@
 package com.pluginjam;
 
 import com.pluginjam.commands.GenDungeonCommand;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.logging.Logger;
 
 public final class PluginJam extends JavaPlugin {
@@ -23,8 +29,8 @@ public final class PluginJam extends JavaPlugin {
             getLogger().severe("*** NoteBlockAPI is not installed or not enabled. ***");
             getLogger().severe("------------------------------------------------------");
             NoteBlockAPI = false;
-            return;
         }
+
     }
 
     @Override
