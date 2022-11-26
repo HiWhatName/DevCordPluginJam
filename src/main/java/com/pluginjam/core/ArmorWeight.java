@@ -7,9 +7,9 @@ import static org.bukkit.Material.DEEPSLATE_EMERALD_ORE;
 
 public enum ArmorWeight {
     LEATHER( 0.005f),
-    IRON(0.01f),
+    IRON(0.011f),
     GOLD(0.015f),
-    DIAMOND( 0.0125f),
+    DIAMOND( 0.013f),
     NETHERITE(0.02f);
 
     private final float weight;

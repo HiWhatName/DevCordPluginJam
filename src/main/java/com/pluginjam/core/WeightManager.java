@@ -1,6 +1,9 @@
 package com.pluginjam.core;
 
 import com.sk89q.worldedit.world.item.ItemType;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -31,6 +34,8 @@ public class WeightManager implements Listener {
         Player p = (Player) event.getWhoClicked();
         armorWeights.put(p.getUniqueId(), calculateArmorWeight(p));
         p.setWalkSpeed(defaultPlayerSpeed - armorWeights.get(p.getUniqueId()));
+        p.spigot().sendMessage(ChatMessageType.ACTION_BAR,
+                TextComponent.fromLegacyText(ChatColor.RED + String.valueOf(Math.round(armorWeights.get(p.getUniqueId()) * 1000 )) + "Kg"));
     }
 
     private float calculateArmorWeight(Player p){
@@ -41,10 +46,13 @@ public class WeightManager implements Listener {
         }
         return weight;
     }
+
     @EventHandler
     public void onClick(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         armorWeights.put(p.getUniqueId(), calculateArmorWeight(p));
+        p.spigot().sendMessage(ChatMessageType.ACTION_BAR,
+                TextComponent.fromLegacyText(ChatColor.RED + String.valueOf(Math.round(armorWeights.get(p.getUniqueId()) * 1000 )) + "Kg"));
         p.setWalkSpeed(defaultPlayerSpeed - armorWeights.get(p.getUniqueId()));
     }
 
