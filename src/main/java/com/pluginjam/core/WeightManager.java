@@ -50,10 +50,14 @@ public class WeightManager implements Listener {
     @EventHandler
     public void onClick(PlayerInteractEvent e) {
         Player p = e.getPlayer();
-        armorWeights.put(p.getUniqueId(), calculateArmorWeight(p));
-        p.spigot().sendMessage(ChatMessageType.ACTION_BAR,
-                TextComponent.fromLegacyText(ChatColor.RED + String.valueOf(Math.round(armorWeights.get(p.getUniqueId()) * 1000 )) + "Kg"));
-        p.setWalkSpeed(defaultPlayerSpeed - armorWeights.get(p.getUniqueId()));
+        if(!(e.getItem() == null)) {
+            if (getWeight(e.getItem()) > 0) {
+                armorWeights.put(p.getUniqueId(), calculateArmorWeight(p));
+                p.spigot().sendMessage(ChatMessageType.ACTION_BAR,
+                        TextComponent.fromLegacyText(ChatColor.RED + String.valueOf(Math.round(armorWeights.get(p.getUniqueId()) * 1000)) + "Kg"));
+                p.setWalkSpeed(defaultPlayerSpeed - armorWeights.get(p.getUniqueId()));
+            }
+        }
     }
 
     float getWeight(ItemStack armorPiece){
