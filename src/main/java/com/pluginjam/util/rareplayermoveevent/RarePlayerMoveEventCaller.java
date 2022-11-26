@@ -16,7 +16,6 @@ import java.util.Map;
 /**
  * @author earomc
  * Created on August 12, 2022 | 22:15:14
- * ʕっ•ᴥ•ʔっ
  */
 
 public class RarePlayerMoveEventCaller implements Timer {
