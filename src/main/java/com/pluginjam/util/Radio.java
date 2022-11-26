@@ -25,15 +25,15 @@ public class Radio implements Listener {
 
         backgroundMusic = new Playlist(ZeldaTheme, CatCradle, NoTime);
         radioSongPlayer = new RadioSongPlayer(backgroundMusic);
-        radioSongPlayer.setVolume((byte) 35);
+        radioSongPlayer.setVolume((byte) 20);
         radioSongPlayer.setRepeatMode(RepeatMode.ALL);
+        radioSongPlayer.setPlaying(true);
     }
 
     @EventHandler
     void onPlayerJoin(PlayerJoinEvent e){
         Player p = e.getPlayer();
         //radioSongPlayer.addPlayer(p.getUniqueId());
-       // radioSongPlayer.setPlaying(true);
 
         //TODO: Change spawn location to start room, start nbs playback.
     }

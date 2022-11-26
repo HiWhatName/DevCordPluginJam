@@ -15,7 +15,7 @@ import java.util.Random;
 public class DungeonWorld extends ChunkGenerator{
 
     World Dungeon;
-    Location SpawnPoint = new Location(Dungeon, -2,33,-2);
+    Location SpawnPoint = new Location(Dungeon, -2,75,-2);
     public DungeonWorld(String WorldName) {
         WorldCreator wc = new WorldCreator(WorldName);
         wc.generator(new DungeonChunkGenerator()); //The chunk generator from step 1
