@@ -1,11 +1,13 @@
 package com.pluginjam.core;
 
+import com.sk89q.worldedit.world.item.ItemType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
@@ -15,6 +17,7 @@ import java.util.UUID;
 public class WeightManager implements Listener {
 
     private HashMap<UUID, Float> armorWeights = new HashMap<>();
+    private static final float defaultPlayerSpeed = .2F;
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
@@ -26,22 +29,23 @@ public class WeightManager implements Listener {
     @EventHandler
     public void onArmorEquip(InventoryClickEvent event) {
         Player p = (Player) event.getWhoClicked();
-        PlayerInventory inv = p.getInventory();
-
-        for (ItemStack armorPiece : inv.getArmorContents()) {
-           if(armorPiece == null) continue;
-           armorWeights.put(p.getUniqueId(), 0.0f + getWeight(armorPiece));
-        }
-
-        p.setWalkSpeed(0.2f - armorWeights.get(p.getUniqueId()));
+        armorWeights.put(p.getUniqueId(), calculateArmorWeight(p));
+        p.setWalkSpeed(defaultPlayerSpeed - armorWeights.get(p.getUniqueId()));
     }
 
+    private float calculateArmorWeight(Player p){
+        float weight = 0.0f;
+        for (ItemStack armorPiece : p.getInventory().getArmorContents()) {
+            if (armorPiece == null) continue;
+            weight += getWeight(armorPiece);
+        }
+        return weight;
+    }
     @EventHandler
-    public void onClick(PlayerInteractEvent e){
+    public void onClick(PlayerInteractEvent e) {
         Player p = e.getPlayer();
-        if(e.getItem() == null) return;
-        armorWeights.put(p.getUniqueId(), armorWeights.get(p.getUniqueId()) + getWeight(e.getItem()));
-        p.setWalkSpeed(0.2f - armorWeights.get(p.getUniqueId()));
+        armorWeights.put(p.getUniqueId(), calculateArmorWeight(p));
+        p.setWalkSpeed(defaultPlayerSpeed - armorWeights.get(p.getUniqueId()));
     }
 
     float getWeight(ItemStack armorPiece){
