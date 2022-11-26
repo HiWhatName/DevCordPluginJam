@@ -1,6 +1,5 @@
 package com.pluginjam.util;
 
-import com.pluginjam.PluginJam;
 import com.xxmicloxx.NoteBlockAPI.model.Playlist;
 import com.xxmicloxx.NoteBlockAPI.model.Song;
 import com.xxmicloxx.NoteBlockAPI.songplayer.RadioSongPlayer;
