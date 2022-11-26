@@ -8,13 +8,16 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.logging.Logger;
 
 public final class PluginJam extends JavaPlugin {
-
-    private static PluginJam instance;
+    public static PluginJam instance;
     Logger logger = super.getLogger();
     boolean NoteBlockAPI = true;
 
     @Override
     public void onEnable() {
+        instance = this;
+        //Command registration.
+        this.getCommand("gendungeon").setExecutor(new GenDungeonCommand());
+
         if (!Bukkit.getPluginManager().isPluginEnabled("NoteBlockAPI")){
             getLogger().severe("-----------------------------------------------------");
             getLogger().severe("*** NoteBlockAPI is not installed or not enabled. ***");
@@ -22,16 +25,13 @@ public final class PluginJam extends JavaPlugin {
             NoteBlockAPI = false;
             return;
         }
-
-        //Command registration.
-        this.getCommand("gendungeon").setExecutor(new GenDungeonCommand());
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
     }
-    public static Plugin getInstance() {
+    public static PluginJam getInstance() {
         return instance;
     }
 }
