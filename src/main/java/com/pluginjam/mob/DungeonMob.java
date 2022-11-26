@@ -1,5 +1,6 @@
 package com.pluginjam.mob;
 
+import com.pluginjam.util.Util;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Mob;
