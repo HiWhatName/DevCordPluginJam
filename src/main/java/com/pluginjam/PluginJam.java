@@ -3,6 +3,7 @@ package com.pluginjam;
 import com.pluginjam.commands.GenDungeonCommand;
 import com.pluginjam.commands.ToggleRadioCommand;
 import com.pluginjam.core.WeightManager;
+import com.pluginjam.dungeon.generator.world.DungeonWorld;
 import com.pluginjam.listener.JoinListener;
 import com.pluginjam.util.Radio;
 import com.pluginjam.util.rareplayermoveevent.RarePlayerMoveEventCaller;
@@ -19,12 +20,15 @@ public final class PluginJam extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        RarePlayerMoveEventCaller rarePlayerMoveEventCaller = new RarePlayerMoveEventCaller(this, 5);
-
-        //copySchemsToFolder();
-
-        //Radio stuff
-        Radio radio = new Radio();
+        //Check for dependencies
+        if (!Bukkit.getPluginManager().isPluginEnabled("NoteBlockAPI") || !Bukkit.getPluginManager().isPluginEnabled("FastAsyncWorldEdit")) {
+            getLogger().severe("-----------------------------------------------------");
+            getLogger().severe("*** NoteBlockAPI/FWE are not installed/enabled    ***");
+            getLogger().severe("------------------------------------------------------");
+            Bukkit.getServer().shutdown(); //rip
+        }
+        // Dungeon world generation - Creates a void world called "dungeon"
+        DungeonWorld dungeonWorld = new DungeonWorld("dungeon");
 
         //Command registration.
         this.getCommand("gendungeon").setExecutor(new GenDungeonCommand());
@@ -35,13 +39,11 @@ public final class PluginJam extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new Radio(), this);
         getServer().getPluginManager().registerEvents(new WeightManager(), this);
 
-        //Check for dependencies
-        if (!Bukkit.getPluginManager().isPluginEnabled("NoteBlockAPI") || !Bukkit.getPluginManager().isPluginEnabled("FastAsyncWorldEdit")) {
-            getLogger().severe("-----------------------------------------------------");
-            getLogger().severe("*** NoteBlockAPI/FWE are not installed/enabled    ***");
-            getLogger().severe("------------------------------------------------------");
-            Bukkit.getServer().shutdown(); //rip
-        }
+        RarePlayerMoveEventCaller rarePlayerMoveEventCaller = new RarePlayerMoveEventCaller(this, 5);
+
+        //Music stuff
+        Radio radio = new Radio();
+
 
     }
 

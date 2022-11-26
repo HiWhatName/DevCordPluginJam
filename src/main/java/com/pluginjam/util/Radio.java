@@ -32,9 +32,8 @@ public class Radio implements Listener {
     @EventHandler
     void onPlayerJoin(PlayerJoinEvent e){
         Player p = e.getPlayer();
-
-        radioSongPlayer.addPlayer(p.getUniqueId());
-        radioSongPlayer.setPlaying(true);
+        //radioSongPlayer.addPlayer(p.getUniqueId());
+       // radioSongPlayer.setPlaying(true);
 
         //TODO: Change spawn location to start room, start nbs playback.
     }
