@@ -51,7 +51,7 @@ public class Radio implements Listener {
         SongPlayer sp = e.getSongPlayer(); //Gives you SongPlayer
         Song nextSong = sp.getSong(); //Gives you player Song
         for( UUID uuid : sp.getPlayerUUIDs()){
-            Bukkit.getPlayer(uuid).sendMessage(ChatColor.YELLOW + "Next up:" + ChatColor.GREEN + nextSong.getTitle());
+            Bukkit.getPlayer(uuid).sendMessage(ChatColor.YELLOW + "Next up: " + ChatColor.GREEN + nextSong.getTitle());
         }
     }
 
