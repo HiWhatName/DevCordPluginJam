@@ -10,11 +10,9 @@ import org.jetbrains.annotations.Nullable;
 /**
  * @author earomc
  * Created on August 12, 2022 | 22:11:23
- * ʕっ•ᴥ•ʔっ
  * An alternative to the PlayerMoveEvent which is called less frequently.
- * Meant to be used if there is a more performance-demanding task that needs to be invoked
+ * Meant to be used if there is a more performance-demanding task that needs to be repeatedly invoked
  * by a PlayerMoveEvent.
- *
  */
 
 public class RarePlayerMoveEvent extends PlayerMoveEvent {
