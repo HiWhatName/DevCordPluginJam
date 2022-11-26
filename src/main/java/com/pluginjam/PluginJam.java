@@ -1,9 +1,14 @@
 package com.pluginjam;
 
 import com.pluginjam.commands.GenDungeonCommand;
+import com.pluginjam.listener.BreakListener;
+import com.pluginjam.listener.JoinListener;
+import com.pluginjam.util.Radio;
+import com.sk89q.worldedit.regions.Region;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -21,8 +26,14 @@ public final class PluginJam extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+
         //Command registration.
         this.getCommand("gendungeon").setExecutor(new GenDungeonCommand());
+
+        //Event registration
+        getServer().getPluginManager().registerEvents( new JoinListener(), this);
+        getServer().getPluginManager().registerEvents( new BreakListener(), this);
+        getServer().getPluginManager().registerEvents( new Radio(), this);
 
         if (!Bukkit.getPluginManager().isPluginEnabled("NoteBlockAPI")){
             getLogger().severe("-----------------------------------------------------");
@@ -31,6 +42,9 @@ public final class PluginJam extends JavaPlugin {
             NoteBlockAPI = false;
         }
 
+        //Radio
+        Radio radio= new Radio();
+        radio.loadNBS();
     }
 
     @Override
