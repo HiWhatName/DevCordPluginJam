@@ -1,4 +1,4 @@
-name: PluginJam
+name: Dungeons
 version: '${version}'
 main: com.pluginjam.PluginJam
 api-version: 1.19

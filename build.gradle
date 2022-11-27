@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'com.pluginjam'
-version = '1.0-SNAPSHOT'
+version = '6.9-SNAPSHOT'
 
 repositories {
     mavenCentral()

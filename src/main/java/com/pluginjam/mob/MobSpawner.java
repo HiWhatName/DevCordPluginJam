@@ -65,7 +65,7 @@ public class MobSpawner {
         }else if(f < 6) {
             //hoglinMob.spawn(sm);
         }else if(f < 7) {
-            //oglinMob.spawn(sm);
+            //zoglinMob.spawn(sm);
         }else if(f < 8) {
             //wardenMob.spawn(sm)
         }else{
