@@ -1,11 +1,18 @@
 package com.pluginjam.mob;
 
 import com.pluginjam.util.Util;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.World;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Mob;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Random;
 
 public abstract class DungeonMob<T extends Mob> {
     protected int level;
@@ -39,6 +46,18 @@ public abstract class DungeonMob<T extends Mob> {
         if (useDefaultName) {
             spawned.setCustomName(Util.generateMobName(this));
             spawned.setCustomNameVisible(true);
+        }
+        // Set stats depended on level
+
+        spawned.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 99999, Math.round(level / 8), false, false)); //we cant use .setHealth()
+        spawned.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(spawned.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getBaseValue() * level / 6);
+        Random rnd = new Random();
+        int i = rnd.nextInt(75);
+        if(i <= level){
+            spawned.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(spawned.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getBaseValue() * level / 4);
+            spawned.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 99999, 1, false, false));
+            spawned.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 99999, 2, false, false));
+            spawned.setCustomName(ChatColor.RED + Util.generateMobName(this));
         }
 
         return spawned;
