@@ -1,8 +1,6 @@
 package com.pluginjam.commands;
 
-import com.pluginjam.mob.SpawnMeta;
-import com.pluginjam.mob.mobs.CreeperMob;
-import com.pluginjam.mob.mobs.SpiderMob;
+import com.pluginjam.mob.MobSpawner;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -12,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class SummonDungeonMobCommand implements CommandExecutor {
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         //TODO: add
@@ -21,8 +20,7 @@ public class SummonDungeonMobCommand implements CommandExecutor {
                     if(args[0] != null) {
                         p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
                         p.sendMessage(ChatColor.GREEN + "Summond a dungeonmob level: " + args[0]);
-                        SpiderMob spiderMob = new SpiderMob(Integer.parseInt(args[0]));
-                        spiderMob.spawn(new SpawnMeta(p.getLocation()));
+                        MobSpawner.spawnRandomDungeonMob(Integer.parseInt(args[0]), p.getLocation());
                     }else{
                         return false;
                     }
