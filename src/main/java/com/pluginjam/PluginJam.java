@@ -37,9 +37,9 @@ public final class PluginJam extends JavaPlugin {
         DungeonWorld dungeonWorld = new DungeonWorld("dungeon");
 
         // Unload vanilla worlds for wayyyy better performance
-        Bukkit.unloadWorld("world", false);
-        Bukkit.unloadWorld("world_nether", false);
-        Bukkit.unloadWorld("world_the_end", false);
+        Bukkit.unloadWorld("world", true);
+        Bukkit.unloadWorld("world_nether", true);
+        Bukkit.unloadWorld("world_the_end", true);
         System.gc(); // Clean up garbage left from the other dimensions
 
         logger.info(LoadedWorldsCommand.getLoadedWorlds().replace("\n", " ").replace("$e", ""));
@@ -52,7 +52,7 @@ public final class PluginJam extends JavaPlugin {
         this.getCommand("loadedworlds").setExecutor(new LoadedWorldsCommand());
 
         //Events
-        getServer().getPluginManager().registerEvents(new JoinListener(), this);
+        getServer().getPluginManager().registerEvents(new JoinListener(dungeonWorld), this);
         getServer().getPluginManager().registerEvents(new RadioCommand(), this);
         getServer().getPluginManager().registerEvents(new WeightManager(), this);
 
