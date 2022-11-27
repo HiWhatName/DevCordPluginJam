@@ -1,8 +1,8 @@
 package com.pluginjam.dungeon.generator.pieces;
 
-import com.pluginjam.dungeon.generator.DungeonPiece;
+import com.pluginjam.dungeon.generator.SingleVariantDungeonPiece;
 
-public class SpawnPiece extends DungeonPiece {
+public class SpawnPiece extends SingleVariantDungeonPiece {
     public SpawnPiece() {
         super("spawn");
     }

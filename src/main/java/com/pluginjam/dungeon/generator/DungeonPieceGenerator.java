@@ -42,8 +42,13 @@ public class DungeonPieceGenerator {
     }
 
     public static DungeonPieceSchematic getRandomVariant(DungeonPiece dungeonPiece) {
-        String[] variants = dungeonPiece.getVariants();
-        String randomVariantLabel = variants[new Random().nextInt(variants.length)];
-        return new DungeonPieceSchematic(randomVariantLabel);
+        String label;
+        if (dungeonPiece instanceof SingleVariantDungeonPiece singleVariantDungeonPiece) {
+            label = singleVariantDungeonPiece.getLabel();
+        } else {
+            String[] variants = dungeonPiece.getVariants();
+            label = variants[new Random().nextInt(variants.length)];
+        }
+        return new DungeonPieceSchematic(label);
     }
 }

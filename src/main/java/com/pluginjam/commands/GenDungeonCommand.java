@@ -16,18 +16,18 @@ import org.jetbrains.annotations.NotNull;
 public class GenDungeonCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if(!(sender instanceof Player player)) return false;
-        if(player.hasPermission("dungeon.gencommand")){
-        QuadPiece quad = new QuadPiece(); //TODO: temp
-        DungeonPieceSchematic randomVariant = DungeonPieceGenerator.getRandomVariant(quad);
-        Location location = player.getLocation();
-        DungeonPieceGenerator.generateDungeonPiece(randomVariant, location);
+        if (!(sender instanceof Player player)) return false;
+        if (player.hasPermission("dungeon.gencommand")) {
+            QuadPiece quad = new QuadPiece(); //TODO: temp
+            DungeonPieceSchematic randomVariant = DungeonPieceGenerator.getRandomVariant(quad);
+            Location location = player.getLocation();
+            DungeonPieceGenerator.generateDungeonPiece(randomVariant, location);
 
-        player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
-        player.sendMessage(ChatColor.YELLOW + "Pasted QuadPiece at X:" + Math.round(player.getLocation().getX()) + " Y:" + Math.round(player.getLocation().getY()) + "Z:" + Math.round(player.getLocation().getZ()));
-        return true;
+            player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
+            player.sendMessage(ChatColor.YELLOW + "Pasted QuadPiece at X:" + Math.round(player.getLocation().getX()) + " Y:" + Math.round(player.getLocation().getY()) + "Z:" + Math.round(player.getLocation().getZ()));
+            return true;
 
-        }else{
+        } else {
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
             player.sendMessage(ChatColor.RED + "No permission!");
             return true;
