@@ -15,11 +15,11 @@ public class JoinListener implements Listener {
     public JoinListener(DungeonWorld dungeonWorld) {
         this.dungeonWorld = dungeonWorld;
     }
-
+    Location playerSpawnPoint = new Location(Bukkit.getWorld("dungeon"), 0, 75, 0);
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerJoin(PlayerJoinEvent e){
         Player player = e.getPlayer();
-        Location playerSpawnPoint = dungeonWorld.getPlayerSpawnPoint();
+        //Location playerSpawnPoint = dungeonWorld.getPlayerSpawnPoint();
         player.setBedSpawnLocation(playerSpawnPoint, true);
         player.spawnParticle(Particle.CLOUD, player.getLocation(), 320);
         if(!(player.hasPlayedBefore())) {
