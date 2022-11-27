@@ -2,6 +2,7 @@
 ## _The more you have, the worse it is..._
 
 **WARNING: Most of these feature still don't work**
+![example workflow](https://github.com/HiWhatName/DevCordPluginJam/actions/workflows/gradle.yml/badge.svg)
 
 | **Dungeons** is a 1.1.9.2 Minecraft plugin created in the span of 48h for the "DevCord Plugin Jam"
 
