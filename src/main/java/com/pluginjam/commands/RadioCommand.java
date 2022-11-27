@@ -58,6 +58,7 @@ public class RadioCommand implements Listener, CommandExecutor, TabCompleter {
         SongPlayer sp = e.getSongPlayer(); //Gives you SongPlayer
         Song nextSong = sp.getSong(); //Gives you player Song
         for( UUID uuid : sp.getPlayerUUIDs()){
+            if(uuid == null) continue;
             if(nextSong.getTitle() == null || nextSong.getTitle() == "") continue;
             Bukkit.getPlayer(uuid).sendMessage(ChatColor.YELLOW + "Next up: " + ChatColor.GREEN + nextSong.getTitle());
         }
