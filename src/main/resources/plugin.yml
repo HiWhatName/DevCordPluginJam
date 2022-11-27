@@ -3,7 +3,7 @@ version: '${version}'
 main: com.pluginjam.PluginJam
 api-version: 1.19
 authors: [ HiWhatName, earomc ]
-softdepend: [NoteBlockAPI]
+softdepend: [NoteBlockAPI, HolographicDisplays]
 depend: [FastAsyncWorldEdit]
 description: The more you have, the worse it is
 website: https://www.youtube.com/watch?v=dQw4w9WgXcQ
@@ -11,9 +11,9 @@ commands:
   gendungeon:
     description: Used for testing purposes only
     usage: /<command>
-  toggleradio:
-    description: Toggles the radio!
-    usage: /<command>
+  radio:
+    description: Perform actions such as toggling the radio
+    usage: /<command> toggle,volume
   rickroll:
     description: Will never ever give up any player
     usage: /<command> player

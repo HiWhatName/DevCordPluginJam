@@ -3,15 +3,12 @@ package com.pluginjam;
 import com.pluginjam.commands.GenDungeonCommand;
 import com.pluginjam.commands.LoadedWorldsCommand;
 import com.pluginjam.commands.RickRollCommand;
-import com.pluginjam.commands.ToggleRadioCommand;
 import com.pluginjam.core.WeightManager;
 import com.pluginjam.dungeon.generator.world.DungeonWorld;
 import com.pluginjam.listener.JoinListener;
-import com.pluginjam.util.Radio;
+import com.pluginjam.commands.RadioCommand;
 import com.pluginjam.util.rareplayermoveevent.RarePlayerMoveEventCaller;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
@@ -50,19 +47,19 @@ public final class PluginJam extends JavaPlugin {
 
         //Command registration.
         this.getCommand("gendungeon").setExecutor(new GenDungeonCommand());
-        this.getCommand("toggleradio").setExecutor(new ToggleRadioCommand());
+        this.getCommand("radio").setExecutor(new RadioCommand());
         this.getCommand("rickroll").setExecutor(new RickRollCommand());
         this.getCommand("loadedworlds").setExecutor(new LoadedWorldsCommand());
 
         //Events
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
-        getServer().getPluginManager().registerEvents(new Radio(), this);
+        getServer().getPluginManager().registerEvents(new RadioCommand(), this);
         getServer().getPluginManager().registerEvents(new WeightManager(), this);
 
         RarePlayerMoveEventCaller rarePlayerMoveEventCaller = new RarePlayerMoveEventCaller(this, 5);
 
         //Music stuff
-        Radio radio = new Radio();
+        RadioCommand radio = new RadioCommand();
 
 
     }
