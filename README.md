@@ -22,6 +22,7 @@
 - At least 1.5GB's of RAM assigned.
 - NoteBlockAPI installed (> 1.4.0 or higher)
 - Fast async world edit or an aquilavent fork present.
+- HolographicDisplays installed.
 
 ## License
 
