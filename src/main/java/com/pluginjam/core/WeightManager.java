@@ -4,6 +4,7 @@ import com.sk89q.worldedit.world.item.ItemType;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -57,10 +58,11 @@ public class WeightManager implements Listener {
     }
     void applyDebuffs(Player p){
         int weight = Math.round(armorWeights.get(p.getUniqueId()) * 1000);
-        if(weight > 40){
+        if(weight > 45){
             p.spigot().sendMessage(ChatMessageType.ACTION_BAR,
                     TextComponent.fromLegacyText(ChatColor.RED + String.valueOf(weight) + "Kg"));
-            p.sendMessage(ChatColor.YELLOW + "Too heavy! More/heavier armor isn't always better!");
+            p.sendMessage(ChatColor.RED + "Too heavy!" + ChatColor.RED + " More armor isn't always better!");
+            p.playSound(p.getLocation(), Sound.BLOCK_BLASTFURNACE_FIRE_CRACKLE, 1f, 1f);
         }else {
             p.spigot().sendMessage(ChatMessageType.ACTION_BAR,
                     TextComponent.fromLegacyText(ChatColor.YELLOW + String.valueOf(weight) + "Kg"));
