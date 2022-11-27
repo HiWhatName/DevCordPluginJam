@@ -15,7 +15,7 @@
 - Armor weight system
 - Randomly generated dungeons
 - Mobs with diffrent skill classes
-- Background radio for your amusment */radio*
+- Background radio for your amusement */radio*
 
 ## Requirements
 - Spigot/Paper or aquilavent *1.1.9.2* fork
