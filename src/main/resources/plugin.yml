@@ -8,6 +8,9 @@ depend: [FastAsyncWorldEdit]
 description: The more you have, the worse it is
 website: https://www.youtube.com/watch?v=dQw4w9WgXcQ
 commands:
+  summondungeonmob:
+    description: Summons a dungeon mob.
+    usage: /<command>
   gendungeon:
     description: Used for testing purposes only
     usage: /<command>
@@ -26,4 +29,7 @@ permissions:
     default: op
   dungeon.loaded:
     description: Allows the usage of /loadedworlds
+    default: op
+  dungeon.summon:
+    description: Allows the usage of /summondungeonmob
     default: op

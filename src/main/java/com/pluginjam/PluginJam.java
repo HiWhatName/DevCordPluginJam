@@ -1,13 +1,11 @@
 package com.pluginjam;
 
-import com.pluginjam.commands.GenDungeonCommand;
-import com.pluginjam.commands.LoadedWorldsCommand;
-import com.pluginjam.commands.RickRollCommand;
+import com.pluginjam.commands.*;
 import com.pluginjam.core.WeightManager;
 import com.pluginjam.dungeon.generator.world.DungeonWorld;
 import com.pluginjam.listener.JoinListener;
-import com.pluginjam.commands.RadioCommand;
 import com.pluginjam.util.rareplayermoveevent.RarePlayerMoveEventCaller;
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,17 +15,21 @@ import java.util.logging.Logger;
 public final class PluginJam extends JavaPlugin {
     public static PluginJam instance;
     Logger logger = super.getLogger();
-
+    private WorldEditPlugin worldEditPlugin;
     @Override
     public void onEnable() {
         instance = this;
-        //Check for dependencies
+        //Check for dependencies //TODO: add holographic displays dep.
         if (!Bukkit.getPluginManager().isPluginEnabled("NoteBlockAPI") || !Bukkit.getPluginManager().isPluginEnabled("FastAsyncWorldEdit")) {
             getLogger().severe("-----------------------------------------------------");
-            getLogger().severe("*** NoteBlockAPI/FWE are not installed/enabled    ***");
+            getLogger().severe("      *** NoteBlockAPI/FWE/HolographicDisplays ***");
+            getLogger().severe("          *** are not installed/enabled ***");
             getLogger().severe("------------------------------------------------------");
             Bukkit.getServer().shutdown(); //rip
         }
+
+        this.worldEditPlugin = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
+
         //Info banner
         getLogger().info("X----------------------------------------X");
         getLogger().info("   * Dungeons by HiWhatName && Earomc *");
@@ -50,6 +52,7 @@ public final class PluginJam extends JavaPlugin {
         this.getCommand("radio").setExecutor(new RadioCommand());
         this.getCommand("rickroll").setExecutor(new RickRollCommand());
         this.getCommand("loadedworlds").setExecutor(new LoadedWorldsCommand());
+        this.getCommand("summondungeonmob").setExecutor(new SummonDungeonMobCommand());
 
         //Events
         getServer().getPluginManager().registerEvents(new JoinListener(dungeonWorld), this);
@@ -76,6 +79,10 @@ public final class PluginJam extends JavaPlugin {
     @Override
     public void onDisable() {
         logger.info("Goodbye ;)");
+    }
+
+    public WorldEditPlugin getWorldEditPlugin(){
+        return this.worldEditPlugin;
     }
 
     public static PluginJam getInstance() {
