@@ -24,6 +24,9 @@ commands:
     description: List all currently loaded worlds.
     usage: /<command>
 permissions:
+  dungeon.ore:
+    description: Allows breaking blocks
+    default: op
   dungeon.gencommand:
     description: Allows the usage of /gendungeon
     default: op

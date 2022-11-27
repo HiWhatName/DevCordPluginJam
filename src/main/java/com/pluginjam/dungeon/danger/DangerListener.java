@@ -1,6 +1,7 @@
 package com.pluginjam.dungeon.danger;
 
 import com.pluginjam.dungeon.DungeonOre;
+import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,7 +22,12 @@ public class DangerListener implements Listener {
             event.setCancelled(true);
         } else {
                 dangerManager.increaseDangerLevel(dungeonOre.getDangerIncrease());
+            event.getBlock().setType(Material.STONE);
         }
+        if(!(event.getPlayer().hasPermission("dungeon.ore"))){
+            event.setCancelled(true);
+        }
+
     }
 
 
