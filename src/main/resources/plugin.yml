@@ -36,3 +36,6 @@ permissions:
   dungeon.summon:
     description: Allows the usage of /summondungeonmob
     default: op
+  dungeon.rick:
+    description: Lets you cosplay as Rick Astley
+    default: op

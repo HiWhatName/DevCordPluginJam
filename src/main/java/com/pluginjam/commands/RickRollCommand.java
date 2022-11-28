@@ -1,6 +1,7 @@
 package com.pluginjam.commands;
 
 import com.pluginjam.PluginJam;
+import com.xxmicloxx.NoteBlockAPI.model.RepeatMode;
 import com.xxmicloxx.NoteBlockAPI.model.Song;
 import com.xxmicloxx.NoteBlockAPI.songplayer.RadioSongPlayer;
 import com.xxmicloxx.NoteBlockAPI.songplayer.SongPlayer;
@@ -20,15 +21,23 @@ public class RickRollCommand implements CommandExecutor {
         if(!(args.length > 0)) return false;
         Player target = Bukkit.getPlayer(args[0]);
         if (target != null) {
-        Song RickRollNBS = NBSDecoder.parse(PluginJam.getInstance().getResource("nbs/music/NeverGonnaGiveYouUp.nbs"));
-        RadioSongPlayer sp = new RadioSongPlayer(RickRollNBS);
-        sp.addPlayer(target);
-        sp.setPlaying(true);
-        sp.setAutoDestroy(true);
-        if(sender instanceof Player p){
-            p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
-        }
-        sender.sendMessage(ChatColor.GREEN + "Started rick-rolling' " + ChatColor.GREEN + target.getDisplayName());
+            if(sender.hasPermission("dungeon.rick")) {
+                Song RickRollNBS = NBSDecoder.parse(PluginJam.getInstance().getResource("nbs/music/NeverGonnaGiveYouUp.nbs"));
+                RadioSongPlayer sp = new RadioSongPlayer(RickRollNBS);
+                RadioCommand.removeFromRadio(target.getUniqueId());
+                sp.addPlayer(target);
+
+                sp.setRepeatMode(RepeatMode.NO);
+                sp.setAutoDestroy(true);
+                sp.setPlaying(true);
+
+                if(sender instanceof Player p){ p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);}
+
+                if(!(sender.equals(target))){
+                    target.sendMessage(ChatColor.GREEN + "Say 'thanks' to: " + ChatColor.YELLOW + sender.getName());
+                    sender.sendMessage(ChatColor.GREEN + "Started rick-rolling' " + ChatColor.GREEN + target.getDisplayName());
+                }else{ sender.sendMessage(ChatColor.GREEN + "Well. u wanted it, didn't u? " + ChatColor.YELLOW + sender.getName()); }
+            }
         } else {
             sender.sendMessage(ChatColor.RED + "Player '" + args[0] + "' does not exist!");
         }

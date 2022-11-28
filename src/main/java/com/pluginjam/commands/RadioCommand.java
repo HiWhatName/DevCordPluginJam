@@ -2,6 +2,7 @@ package com.pluginjam.commands;
 
 import com.pluginjam.PluginJam;
 import com.xxmicloxx.NoteBlockAPI.event.SongNextEvent;
+import com.xxmicloxx.NoteBlockAPI.event.SongStoppedEvent;
 import com.xxmicloxx.NoteBlockAPI.model.Playlist;
 import com.xxmicloxx.NoteBlockAPI.model.RepeatMode;
 import com.xxmicloxx.NoteBlockAPI.model.Song;
@@ -39,7 +40,7 @@ public class RadioCommand implements Listener, CommandExecutor, TabCompleter {
 
         backgroundMusic = new Playlist(ScobyDoo, ZeldaTheme, TetrisB,CatCradle, NoTime);
         radioSongPlayer = new RadioSongPlayer(backgroundMusic);
-        radioSongPlayer.setVolume((byte) Math.round(127 * 0.35f)); // 0.2f = 20%
+        radioSongPlayer.setVolume((byte) Math.round(127 * 0.35f)); // 0.35f = 35%
         radioSongPlayer.setRepeatMode(RepeatMode.ALL);
         radioSongPlayer.setPlaying(true);
     }
@@ -55,8 +56,8 @@ public class RadioCommand implements Listener, CommandExecutor, TabCompleter {
     }
     @EventHandler
     public void onSongNext(SongNextEvent e){
-        SongPlayer sp = e.getSongPlayer(); //Gives you SongPlayer
-        Song nextSong = sp.getSong(); //Gives you player Song
+        SongPlayer sp = e.getSongPlayer();
+        Song nextSong = sp.getSong();
         for( UUID uuid : sp.getPlayerUUIDs()){
             if(uuid == null) continue;
             if(nextSong.getTitle() == null || nextSong.getTitle() == "") continue;
@@ -64,8 +65,13 @@ public class RadioCommand implements Listener, CommandExecutor, TabCompleter {
         }
     }
 
-    public static RadioSongPlayer getBackGroundMusicPlayer(){
-        return radioSongPlayer;
+    @EventHandler
+    void onSongStop(SongStoppedEvent e){
+        SongPlayer sp = e.getSongPlayer();
+        for( UUID uuid : sp.getPlayerUUIDs()){
+            if(uuid == null) continue;
+            Bukkit.getPlayer(uuid).sendMessage(ChatColor.RED + "Stopped the radio");
+        }
     }
 
     @Override
@@ -74,7 +80,7 @@ public class RadioCommand implements Listener, CommandExecutor, TabCompleter {
         if(sender instanceof Player p) {
             if (args[0].equals("toggle")) {
                     if (radioSongPlayer.getPlayerUUIDs().contains(p.getUniqueId())) {
-                        radioSongPlayer.removePlayer(p.getUniqueId());
+                        removeFromRadio(p.getUniqueId());
                         //radioSongPlayer.setPlaying(false);
                         p.sendMessage(ChatColor.RED + "Toggled the radio off!");
                     } else {
@@ -113,5 +119,19 @@ public class RadioCommand implements Listener, CommandExecutor, TabCompleter {
         final List<String> completions = new ArrayList<String>(Arrays.asList(COMMANDS));
         Collections.sort(completions);
         return completions;
+    }
+
+    public static RadioSongPlayer getBackGroundMusicPlayer(){
+        return radioSongPlayer;
+    }
+    public static void removeFromRadio(UUID uuid){
+        if (radioSongPlayer.getPlayerUUIDs().contains(uuid)){
+            radioSongPlayer.removePlayer(uuid);
+        }
+    }
+    public static void addToRadio(UUID uuid){
+        if (!(radioSongPlayer.getPlayerUUIDs().contains(uuid))){
+            radioSongPlayer.addPlayer(uuid);
+        }
     }
 }
