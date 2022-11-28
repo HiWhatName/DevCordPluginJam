@@ -78,9 +78,9 @@ public final class PluginJam extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        Bukkit.getWorld("dungeon").getWorldFolder().deleteOnExit(); // TODO: Does not work, so find an alternative
         logger.info("Goodbye ;)");
     }
-
     public WorldEditPlugin getWorldEditPlugin(){
         return this.worldEditPlugin;
     }
