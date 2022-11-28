@@ -49,15 +49,16 @@ public abstract class DungeonMob<T extends Mob> {
         }
         // Set stats depended on level
 
-        spawned.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 99999, Math.round(level / 8), false, false)); //we cant use .setHealth()
-        spawned.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(spawned.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getBaseValue() * level / 6);
+        spawned.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 99999, Math.round(level / 3), false, false)); //we cant use .setHealth()
+        spawned.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(spawned.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getBaseValue() * level / 5);
         Random rnd = new Random();
-        int i = rnd.nextInt(75);
+        int i = rnd.nextInt(65);
         if(i <= level){
             spawned.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(spawned.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getBaseValue() * level / 4);
             spawned.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 99999, 1, false, false));
-            spawned.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 99999, 2, false, false));
+            spawned.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 9999, 1, false, false));
             spawned.setCustomName(ChatColor.RED + Util.generateMobName(this));
+
         }
 
         return spawned;

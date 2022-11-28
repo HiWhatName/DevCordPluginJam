@@ -4,6 +4,8 @@ import com.sk89q.worldedit.world.item.ItemType;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,6 +24,7 @@ public class WeightManager implements Listener {
 
     private HashMap<UUID, Float> armorWeights = new HashMap<>();
     private static final float defaultPlayerSpeed = .2F;
+    private static final float defaultFlySpeed = 0.18F;
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
@@ -50,9 +53,13 @@ public class WeightManager implements Listener {
     public void onClick(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         if(!(e.getItem() == null)) {
-            if (getWeight(e.getItem()) > 0) {
+            if (getWeight(e.getItem()) > 0 || e.getItem().getType() == Material.FIREWORK_ROCKET) {
                 armorWeights.put(p.getUniqueId(), calculateArmorWeight(p));
                applyDebuffs(p);
+               if(e.getItem().getType() == Material.FIREWORK_ROCKET && calculateArmorWeight(p) * 1000 >= 35){
+                   p.sendMessage(ChatColor.RED + "Too heavy, can't use these!");
+                   e.setCancelled(true);
+               }
             }
         }
     }
@@ -67,6 +74,7 @@ public class WeightManager implements Listener {
             p.spigot().sendMessage(ChatMessageType.ACTION_BAR,
                     TextComponent.fromLegacyText(ChatColor.YELLOW + String.valueOf(weight) + "Kg"));
         }
+        p.setFlySpeed(defaultFlySpeed - armorWeights.get(p.getUniqueId()));
         p.setWalkSpeed(defaultPlayerSpeed - armorWeights.get(p.getUniqueId()));
     }
 
@@ -82,6 +90,10 @@ public class WeightManager implements Listener {
                     ArmorWeight.DIAMOND.getWeight();
             case NETHERITE_HELMET, NETHERITE_CHESTPLATE, NETHERITE_LEGGINGS, NETHERITE_BOOTS ->
                     ArmorWeight.NETHERITE.getWeight();
+            case ELYTRA ->
+                ArmorWeight.ELYTRA.getWeight();
+            case CHAINMAIL_HELMET, CHAINMAIL_CHESTPLATE, CHAINMAIL_LEGGINGS, CHAINMAIL_BOOTS ->
+                ArmorWeight.CHAIN.getWeight();
             default -> 0.0f;
         };
     }
