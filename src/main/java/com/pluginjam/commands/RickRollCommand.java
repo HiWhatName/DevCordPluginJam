@@ -16,17 +16,16 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class RickRollCommand implements CommandExecutor {
+    Song RickRollNBS = NBSDecoder.parse(PluginJam.getInstance().getResource("nbs/music/NeverGonnaGiveYouUp.nbs"));
+    RadioSongPlayer sp = new RadioSongPlayer(RickRollNBS);
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(!(args.length > 0)) return false;
         Player target = Bukkit.getPlayer(args[0]);
         if (target != null) {
             if(sender.hasPermission("dungeon.rick")) {
-                Song RickRollNBS = NBSDecoder.parse(PluginJam.getInstance().getResource("nbs/music/NeverGonnaGiveYouUp.nbs"));
-                RadioSongPlayer sp = new RadioSongPlayer(RickRollNBS);
                 RadioCommand.removeFromRadio(target.getUniqueId());
-                sp.addPlayer(target);
-
+                if(!(sp.getPlayerUUIDs().contains(target.getUniqueId()))) sp.addPlayer(target);
                 sp.setRepeatMode(RepeatMode.NO);
                 sp.setAutoDestroy(true);
                 sp.setPlaying(true);

@@ -13,6 +13,10 @@ import java.io.*;
 import java.util.logging.Logger;
 
 public final class PluginJam extends JavaPlugin {
+    // |-------------------------------------------------------------------|
+    // | A large potion of code in this plugin was written under immense
+    // | time pressure, so feel free to refactor it.
+    // |-------------------------------------------------------------------|
     public static PluginJam instance;
     Logger logger = super.getLogger();
     private WorldEditPlugin worldEditPlugin;

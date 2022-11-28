@@ -26,6 +26,10 @@ public class WeightManager implements Listener {
     private static final float defaultPlayerSpeed = .2F;
     private static final float defaultFlySpeed = 0.18F;
 
+    // |-------------------------------------------------------------------|
+    // This was coded under immense time pressure, feel free to refactor it
+    // |-------------------------------------------------------------------|
+
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
         if(!(armorWeights.containsKey(e.getPlayer().getUniqueId()))){
@@ -67,8 +71,8 @@ public class WeightManager implements Listener {
         int weight = Math.round(armorWeights.get(p.getUniqueId()) * 1000);
         if(weight > 45){
             p.spigot().sendMessage(ChatMessageType.ACTION_BAR,
-                    TextComponent.fromLegacyText(ChatColor.RED + String.valueOf(weight) + "Kg"));
-            p.sendMessage(ChatColor.RED + "Too heavy!" + ChatColor.RED + " More armor isn't always better!");
+                    TextComponent.fromLegacyText(ChatColor.RED + String.valueOf(weight) + "Kg" +
+                            " - Too heavy!" + ChatColor.RED + " More armor isn't always better!"));
             p.playSound(p.getLocation(), Sound.BLOCK_BLASTFURNACE_FIRE_CRACKLE, 1f, 1f);
         }else {
             p.spigot().sendMessage(ChatMessageType.ACTION_BAR,
