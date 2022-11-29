@@ -24,7 +24,7 @@ public class GenDungeonCommand implements CommandExecutor {
              DungeonPieceGenerator.generateDungeonPiece(randomVariant, location);
 
             player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
-            player.sendMessage(ChatColor.YELLOW + "Pasted QuadPiece at X:" + Math.round(player.getLocation().getX()) + " Y:" + Math.round(player.getLocation().getY()) + "Z:" + Math.round(player.getLocation().getZ()));
+            player.sendMessage(ChatColor.YELLOW + "Pasted" + spawnPiece.getLabel() + " at X:" + Math.round(player.getLocation().getX()) + " Y:" + Math.round(player.getLocation().getY()) + "Z:" + Math.round(player.getLocation().getZ()));
             return true;
         } else {
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
