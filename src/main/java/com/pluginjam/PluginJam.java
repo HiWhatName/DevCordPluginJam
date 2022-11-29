@@ -2,6 +2,8 @@ package com.pluginjam;
 
 import com.pluginjam.commands.*;
 import com.pluginjam.core.WeightManager;
+import com.pluginjam.dungeon.danger.DangerListener;
+import com.pluginjam.dungeon.danger.DangerManager;
 import com.pluginjam.dungeon.generator.world.DungeonWorld;
 import com.pluginjam.listener.JoinListener;
 import com.pluginjam.util.rareplayermoveevent.RarePlayerMoveEventCaller;
@@ -20,9 +22,15 @@ public final class PluginJam extends JavaPlugin {
     public static PluginJam instance;
     Logger logger = super.getLogger();
     private WorldEditPlugin worldEditPlugin;
+    private DangerListener dangerListener;
     @Override
     public void onEnable() {
+        //Plugin/Object instances
+        this.worldEditPlugin = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
         instance = this;
+        DangerManager dangerManager = new DangerManager();
+        this.dangerListener = new DangerListener(dangerManager); // TODO: Init this per dungeonWorld creation.
+
         //Check for dependencies //TODO: add holographic displays dep.
         if (!Bukkit.getPluginManager().isPluginEnabled("NoteBlockAPI") || !Bukkit.getPluginManager().isPluginEnabled("FastAsyncWorldEdit")) {
             getLogger().severe("-----------------------------------------------------");
@@ -32,24 +40,21 @@ public final class PluginJam extends JavaPlugin {
             Bukkit.getServer().shutdown(); //rip
         }
 
-        this.worldEditPlugin = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
-
         //Info banner
         getLogger().info("X----------------------------------------X");
         getLogger().info("   * Dungeons by HiWhatName && Earomc *");
         getLogger().info("X----------------------------------------X");
+        //Bukkit.loadServerIcon()
 
         // Dungeon world generation - Creates a void world called "dungeon"
         DungeonWorld dungeonWorld = new DungeonWorld("dungeon");
 
         // Unload vanilla worlds for wayyyy better performance
-        Bukkit.unloadWorld("world", true);
+        Bukkit.unloadWorld("world", true); // Bukkit disallows unloading the world, oh well
         Bukkit.unloadWorld("world_nether", true);
         Bukkit.unloadWorld("world_the_end", true);
         System.gc(); // Clean up garbage left from the other dimensions
-
         logger.info(LoadedWorldsCommand.getLoadedWorlds().replace("\n", " ").replace("$e", ""));
-
 
         //Command registration.
         this.getCommand("gendungeon").setExecutor(new GenDungeonCommand());
@@ -62,6 +67,7 @@ public final class PluginJam extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new JoinListener(dungeonWorld), this);
         getServer().getPluginManager().registerEvents(new RadioCommand(), this);
         getServer().getPluginManager().registerEvents(new WeightManager(), this);
+        getServer().getPluginManager().registerEvents(dangerListener, this);
 
         RarePlayerMoveEventCaller rarePlayerMoveEventCaller = new RarePlayerMoveEventCaller(this, 5);
 
@@ -72,12 +78,6 @@ public final class PluginJam extends JavaPlugin {
     }
 
     private void copySchemsToFolder() {
-        InputStream schem = getResource("schem");
-        /*
-        try (FileInputStream in = new FileInputStream(schem)) {
-        }
-        FileUtils.copyDirectory(schem, this.getDataFolder() + "/schem");
-         */
     }
 
     @Override
@@ -87,6 +87,9 @@ public final class PluginJam extends JavaPlugin {
     }
     public WorldEditPlugin getWorldEditPlugin(){
         return this.worldEditPlugin;
+    }
+    public DangerListener getDangerListener(){
+        return this.dangerListener;
     }
 
     public static PluginJam getInstance() {

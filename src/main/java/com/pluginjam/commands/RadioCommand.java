@@ -50,7 +50,7 @@ public class RadioCommand implements Listener, CommandExecutor, TabCompleter {
     @EventHandler
     void onPlayerJoin(PlayerJoinEvent e){
         Player p = e.getPlayer();
-        if(!(radioSongPlayer.getPlayerUUIDs().contains(p.getUniqueId()))) {
+        if(!(radioSongPlayer.getPlayerUUIDs().contains(p.getUniqueId()))) { //TODO: Set playback to where p left off
             radioSongPlayer.addPlayer(p.getUniqueId());
         }
     }
@@ -61,6 +61,7 @@ public class RadioCommand implements Listener, CommandExecutor, TabCompleter {
         for( UUID uuid : sp.getPlayerUUIDs()){
             if(uuid == null) continue;
             if(nextSong.getTitle() == null || nextSong.getTitle() == "") continue;
+            if(Bukkit.getPlayer(uuid) == null) continue;
             Bukkit.getPlayer(uuid).sendMessage(ChatColor.YELLOW + "Next up: " + ChatColor.GREEN + nextSong.getTitle());
         }
     }
