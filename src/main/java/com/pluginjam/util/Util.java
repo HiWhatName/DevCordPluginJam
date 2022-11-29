@@ -10,14 +10,20 @@ import java.util.Random;
 
 public class Util {
 
-    public static String generateMobName(DungeonMob<?> dungeonMob) {
-        return dungeonMob.getDisplayName() + " | LVL" + dungeonMob.getLevel();
-    }
-    public static String generateMobName(DungeonMob<?> dungeonMob, boolean miniBoss, Random rnd) { // miniBoss name gen.
-        String[] miniBossPrefix = {"Almighty", "Ancient", "Ethereal"}; // TODO: Don't initialize these when the function gets called
-        String[] miniBossSuffix = {"from hell", "of Doom", "", ""};
-        return miniBossPrefix[rnd.nextInt(miniBossPrefix.length)] + " " + dungeonMob.getDisplayName() + " | LVL " +
-                dungeonMob.getLevel() + " " + miniBossSuffix[rnd.nextInt(miniBossSuffix.length)];
+    /** Function used to generate mob names depending on its criteria.
+     * @param dungeonMob Mob which name should be generated
+     * @param rnd Random instance. [Random rnd = new Random();]
+     * @return String usable as the mob's display name
+     */
+    public static String generateMobName(DungeonMob<?> dungeonMob, Random rnd) { // miniBoss name gen.
+        if(dungeonMob.isMiniBoss()){
+            String[] miniBossPrefix = {"Almighty", "Ancient", "Ethereal"}; // TODO: Don't initialize these when the function gets called
+            String[] miniBossSuffix = {"from hell", "of Doom", "", ""};
+            return miniBossPrefix[rnd.nextInt(miniBossPrefix.length)] + " " + dungeonMob.getDisplayName() + " " +
+                    dungeonMob.getLevel() + " " + miniBossSuffix[rnd.nextInt(miniBossSuffix.length)] + " | LVL";
+        }else{
+            return dungeonMob.getDisplayName() + " | LVL" + dungeonMob.getLevel();
+        }
     }
 
     public static void setHealth(LivingEntity entity, double health) {
@@ -25,9 +31,17 @@ public class Util {
         maxHealthAttribute.setBaseValue(health);
         entity.setHealth(health);
     }
+
+    /**
+     * Function used to randomly generate a miniBoss probability
+     * @param level Current level of the dungeonMob entity
+     * @param rnd Random instance. [Random rnd = new Random();]
+     * @return Returns whether the dungeonMob should be a miniBoss
+     */
     public static boolean genMiniBossChance(int level, Random rnd){
         return 1 * (1f + level / 3.25f) > (rnd.nextFloat(1.5f,25f));
     }
+
     public static AttributeInstance getAttribute(LivingEntity entity, Attribute attribute) {
         return Objects.requireNonNull(
                 entity.getAttribute(attribute),

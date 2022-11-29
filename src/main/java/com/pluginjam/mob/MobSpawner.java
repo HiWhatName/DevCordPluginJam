@@ -23,6 +23,9 @@ public class MobSpawner {
 
     }
 
+    /** Spawns a random dungeon dungeonMob based on the current danger level
+     * @param sm Spawn location of the mob
+     */
     public void spawnRandomDungeonMob(SpawnMeta sm){
         reevaluateChances(sm.world().getDifficulty());
         mobProbability.getRandom().spawn(sm);
