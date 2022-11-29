@@ -4,7 +4,7 @@
 **WARNING: Most of these feature still don't work**
 ![example workflow](https://github.com/HiWhatName/DevCordPluginJam/actions/workflows/gradle.yml/badge.svg)
 
-| **Dungeons** is a 1.1.9.2 Minecraft plugin created in the span of 48h for the "DevCord Plugin Jam"
+| **Dungeons** is a 1.19.2 Minecraft plugin created in the span of 48h for the "DevCord Plugin Jam"
 
 - ✨Explore vast and randomly generated cave like dungeon systems
 - ✨Find better armor and tools. Pick wisley as sometimes less is more
@@ -18,7 +18,7 @@
 - Background radio for your amusement */radio*
 
 ## Requirements
-- Spigot/Paper or aquilavent *1.1.9.2* fork
+- Spigot/Paper or aquilavent *1.19.2* fork
 - At least 1.5GB's of RAM assigned.
 - NoteBlockAPI installed (> 1.4.0 or higher)
 - Fast async world edit or an aquilavent fork present.
