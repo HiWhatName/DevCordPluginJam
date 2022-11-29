@@ -56,7 +56,6 @@ public abstract class DungeonMob<T extends Mob> {
         }else{
             spawned.setCustomName(Util.generateMobName(this));
         }
-
         //AttributeInstance dmgAttribute = Util.get.... After 5hp dmg, we'll only add 1/2
         double baseDMG = spawned.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getBaseValue();
         if(baseDMG * level / 4 > baseDMG + 5f){ spawned.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(5f + ((baseDMG * level / 3.5) - 5f) / 2);
@@ -68,7 +67,6 @@ public abstract class DungeonMob<T extends Mob> {
             creeper.setExplosionRadius((creeper.getExplosionRadius() + Math.round(level / 8.5f))); // Lvl. 20: +2.3 radius
             creeper.setMaxFuseTicks(creeper.getMaxFuseTicks() - level); //Lvl. 10: -0.5sec
         }
-
         return spawned;
     }
 

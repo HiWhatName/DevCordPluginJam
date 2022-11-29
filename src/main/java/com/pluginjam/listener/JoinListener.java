@@ -14,7 +14,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class JoinListener implements Listener {
 
-    private final DungeonWorld dungeonWorld;
+    private DungeonWorld dungeonWorld;
     Location playerSpawnPoint;
 
     public JoinListener(DungeonWorld dungeonWorld) {
@@ -24,6 +24,7 @@ public class JoinListener implements Listener {
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerJoin(PlayerJoinEvent e){
         this.playerSpawnPoint = dungeonWorld.getSpawnPoint();
+        this.dungeonWorld = PluginJam.getInstance().getDungeonWorld();
         Player player = e.getPlayer();
         player.setBedSpawnLocation(playerSpawnPoint, true);
         player.spawnParticle(Particle.CLOUD, player.getLocation(), 320);
@@ -36,13 +37,13 @@ public class JoinListener implements Listener {
                     setLore("Used quite a bit... still seems to work fine tho").addEnchant(Enchantment.DIG_SPEED, (byte) 2).setUnbreakable(true).build());
         }
 
-        PluginJam.getInstance().getDangerListener().getDangerBar().addPlayer(player); // horrible, breaking every java convention possible xp
+        dungeonWorld.getDangerListener().getDangerBar().addPlayer(player);
 
         //Backup check if player gets spawned in the wrong dimension
         if(player.getLocation().getWorld() != dungeonWorld.getDungeonWorld()){
             World world = player.getWorld();
             player.teleport(playerSpawnPoint);
-            Bukkit.unloadWorld(world, true);
+            Bukkit.unloadWorld(world, true); // Won't unload it completely
         }
     }
 }

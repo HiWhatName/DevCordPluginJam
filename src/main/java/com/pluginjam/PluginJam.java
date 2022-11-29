@@ -22,14 +22,12 @@ public final class PluginJam extends JavaPlugin {
     public static PluginJam instance;
     Logger logger = super.getLogger();
     private WorldEditPlugin worldEditPlugin;
-    private DangerListener dangerListener;
+    private DungeonWorld dungeonWorld;
     @Override
     public void onEnable() {
         //Plugin/Object instances
         this.worldEditPlugin = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
         instance = this;
-        DangerManager dangerManager = new DangerManager();
-        this.dangerListener = new DangerListener(dangerManager); // TODO: Init this per dungeonWorld creation.
 
         //Check for dependencies //TODO: add holographic displays dep.
         if (!Bukkit.getPluginManager().isPluginEnabled("NoteBlockAPI") || !Bukkit.getPluginManager().isPluginEnabled("FastAsyncWorldEdit")) {
@@ -47,7 +45,8 @@ public final class PluginJam extends JavaPlugin {
         //Bukkit.loadServerIcon()
 
         // Dungeon world generation - Creates a void world called "dungeon"
-        DungeonWorld dungeonWorld = new DungeonWorld("dungeon");
+        this.dungeonWorld = new DungeonWorld("dungeon", this);
+        DangerManager dangerManager = new DangerManager(dungeonWorld.getDungeonWorld().getDifficulty());
 
         // Unload vanilla worlds for wayyyy better performance
         Bukkit.unloadWorld("world", true); // Bukkit disallows unloading the world, oh well
@@ -67,7 +66,7 @@ public final class PluginJam extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new JoinListener(dungeonWorld), this);
         getServer().getPluginManager().registerEvents(new RadioCommand(), this);
         getServer().getPluginManager().registerEvents(new WeightManager(), this);
-        getServer().getPluginManager().registerEvents(dangerListener, this);
+        //getServer().getPluginManager().registerEvents(new DangerListener(dangerManager), this); Moved to @link DungeonWorld.java to allow multiple instances of it
 
         RarePlayerMoveEventCaller rarePlayerMoveEventCaller = new RarePlayerMoveEventCaller(this, 5);
 
@@ -88,8 +87,8 @@ public final class PluginJam extends JavaPlugin {
     public WorldEditPlugin getWorldEditPlugin(){
         return this.worldEditPlugin;
     }
-    public DangerListener getDangerListener(){
-        return this.dangerListener;
+    public DungeonWorld getDungeonWorld(){
+        return this.dungeonWorld;
     }
 
     public static PluginJam getInstance() {
