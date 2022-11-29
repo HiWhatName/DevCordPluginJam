@@ -15,6 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.text.DecimalFormat;
@@ -35,7 +36,7 @@ public class DangerListener implements Listener {
 
     @EventHandler
     public void onBreakOre(BlockBreakEvent e) {
-       // if(!(e.getBlock().getWorld() == dungeonWorld)) return; // Todo: Remove hardcoded 'dungeon' var.
+       //if(e.getBlock().getWorld().getName().equals(dungeonWorld)) return;
         Player p = e.getPlayer();
 
         DungeonOre dungeonOre = DungeonOre.getFromMaterial(e.getBlock().getType());
@@ -43,7 +44,7 @@ public class DangerListener implements Listener {
             for(ItemStack item : e.getBlock().getDrops(p.getItemInUse(), p)){ // Add items to inv instead of dropping them
                 p.getInventory().addItem(item);
             }
-            p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f ,1f);
+            p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.35f ,1f);
             e.getBlock().setType(Material.STONE);
             e.setDropItems(false);
             dangerManager.increaseDangerLevel(dungeonOre.getDangerIncrease());
@@ -52,11 +53,13 @@ public class DangerListener implements Listener {
             p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.RED + "Can't break this!"));
             p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 0.5f, 1f);
             e.setCancelled(true);
+        }else{
+            e.setCancelled(false);
         }
     }
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e){
-        if(!(e.getBlock().getWorld() == Bukkit.getWorld("dungeon"))) return; // Todo: Remove hardcoded 'dungeon' var.
+        //if(!(e.getBlock().getWorld().equals(dungeonWorld))) return;
         Player p = e.getPlayer();
 
         if(!(p.hasPermission("dungeon.build") || p.getGameMode() == GameMode.CREATIVE)){
@@ -86,9 +89,13 @@ public class DangerListener implements Listener {
 
     @EventHandler
     public void onEntityDeath(EntityDeathEvent e){
-        if(e.getEntity() instanceof DungeonMob<?> mob && e.getEntity().getLocation().getWorld() == dungeonWorld){
-            this.dangerManager.increaseDangerLevel(0.1f);
+        if(e.getEntity() instanceof DungeonMob<?> mob ){
+            this.dangerManager.increaseDangerLevel(1.1f);
         }
+    }
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent e){
+        this.dangerBar.addPlayer(e.getPlayer());
     }
     public BossBar getDangerBar(){
         return this.dangerBar;

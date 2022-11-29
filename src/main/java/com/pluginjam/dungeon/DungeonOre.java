@@ -38,7 +38,7 @@ public enum DungeonOre {
     }
 
     @Nullable
-    public static DungeonOre getFromMaterial(Material material) {
+    public static DungeonOre getFromMaterial(Material material) { //TODO: Kinda always returns null
         return bukkitMatToDungeonOre.get(material);
     }
 

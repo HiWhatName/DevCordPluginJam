@@ -14,7 +14,6 @@ import org.jetbrains.annotations.NotNull;
 public class SummonDungeonMobCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        //TODO: add
         if(sender instanceof Player p) {
             if(p.hasPermission("dungeon.summon")){
                 p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
