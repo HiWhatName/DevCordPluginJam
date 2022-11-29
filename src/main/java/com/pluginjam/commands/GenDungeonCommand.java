@@ -3,7 +3,7 @@ package com.pluginjam.commands;
 
 import com.pluginjam.dungeon.generator.DungeonPieceGenerator;
 import com.pluginjam.dungeon.generator.DungeonPieceSchematic;
-import com.pluginjam.dungeon.generator.pieces.QuadPiece;
+import com.pluginjam.dungeon.generator.pieces.SpawnPiece;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -18,15 +18,14 @@ public class GenDungeonCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player player)) return false;
         if (player.hasPermission("dungeon.gencommand")) {
-            QuadPiece quad = new QuadPiece(); //TODO: temp
-            DungeonPieceSchematic randomVariant = DungeonPieceGenerator.getRandomVariant(quad);
+            SpawnPiece spawnPiece = new SpawnPiece(); //TODO: temp
+            DungeonPieceSchematic randomVariant = DungeonPieceGenerator.getRandomVariant(spawnPiece);
             Location location = player.getLocation();
-            DungeonPieceGenerator.generateDungeonPiece(randomVariant, location);
+             DungeonPieceGenerator.generateDungeonPiece(randomVariant, location);
 
             player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
             player.sendMessage(ChatColor.YELLOW + "Pasted QuadPiece at X:" + Math.round(player.getLocation().getX()) + " Y:" + Math.round(player.getLocation().getY()) + "Z:" + Math.round(player.getLocation().getZ()));
             return true;
-
         } else {
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
             player.sendMessage(ChatColor.RED + "No permission!");

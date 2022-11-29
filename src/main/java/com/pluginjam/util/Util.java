@@ -6,10 +6,18 @@ import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.LivingEntity;
 
 import java.util.Objects;
+import java.util.Random;
 
 public class Util {
+
     public static String generateMobName(DungeonMob<?> dungeonMob) {
         return dungeonMob.getDisplayName() + " | LVL" + dungeonMob.getLevel();
+    }
+    public static String generateMobName(DungeonMob<?> dungeonMob, boolean miniBoss, Random rnd) { // miniBoss name gen.
+        String[] miniBossPrefix = {"Almighty", "Ancient", "Ethereal"}; // TODO: Don't initialize these when the function gets called
+        String[] miniBossSuffix = {"from hell", "of Doom", "", ""};
+        return miniBossPrefix[rnd.nextInt(miniBossPrefix.length)] + " " + dungeonMob.getDisplayName() + " | LVL " +
+                dungeonMob.getLevel() + " " + miniBossSuffix[rnd.nextInt(miniBossSuffix.length)];
     }
 
     public static void setHealth(LivingEntity entity, double health) {
@@ -17,7 +25,9 @@ public class Util {
         maxHealthAttribute.setBaseValue(health);
         entity.setHealth(health);
     }
-
+    public static boolean genMiniBossChance(int level, Random rnd){
+        return 1 * (1f + level / 3.25f) > (rnd.nextFloat(1.5f,25f));
+    }
     public static AttributeInstance getAttribute(LivingEntity entity, Attribute attribute) {
         return Objects.requireNonNull(
                 entity.getAttribute(attribute),
@@ -26,7 +36,7 @@ public class Util {
     }
 
     /**
-     * A linear function mapping the float danger level to an integer to be displayed for the mobs.
+     * A linear function mapping the float danger level to an integer used by dungeon mobs.
      * @param danger The danger level you want to convert from
      * @param a The multiplicator
      * @return The level usable for mobs
