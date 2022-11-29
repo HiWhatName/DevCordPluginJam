@@ -36,6 +36,9 @@ public abstract class DungeonMob<T extends Mob> {
         this.entity = null;
         this.miniBoss = miniBoss;
     }
+    public boolean isMiniBoss(){
+        return this.miniBoss;
+    }
     
     public DungeonMob(int level, @NotNull Class<T> baseEntityClass) {
         this(level, baseEntityClass, false);
@@ -52,9 +55,9 @@ public abstract class DungeonMob<T extends Mob> {
             spawned.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1, false, false)); // + 130% Dmg
             spawned.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(spawned.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue() * 1.15f); // 15% Faster
             spawned.getAttribute(Attribute.GENERIC_ARMOR).setBaseValue(spawned.getAttribute(Attribute.GENERIC_ARMOR).getBaseValue() * 1.25f); // 25% More armor since we won't add more hp.
-            spawned.setCustomName(ChatColor.RED + Util.generateMobName(this, true, rnd));
+            spawned.setCustomName(ChatColor.RED + Util.generateMobName(this, rnd));
         }else{
-            spawned.setCustomName(Util.generateMobName(this));
+            spawned.setCustomName(Util.generateMobName(this, rnd));
         }
         //AttributeInstance dmgAttribute = Util.get.... After 5hp dmg, we'll only add 1/2
         double baseDMG = spawned.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getBaseValue();
