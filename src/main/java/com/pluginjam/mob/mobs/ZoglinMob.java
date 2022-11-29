@@ -10,7 +10,7 @@ public class ZoglinMob extends DungeonMob<Zoglin> {
         return "Zoglin";
     }
 
-    public ZoglinMob(int level, @NotNull Class<Zoglin> baseEntityClass) {
-        super(level, baseEntityClass);
+    public ZoglinMob(int level, @NotNull Class<Zoglin> baseEntityClass, boolean miniBoss) {
+        super(level, baseEntityClass, miniBoss);
     }
 }

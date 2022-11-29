@@ -1,76 +1,57 @@
 package com.pluginjam.mob;
 
 import com.pluginjam.dungeon.danger.DangerManager;
-import com.pluginjam.mob.mobs.SpiderJockeyMob;
-import com.pluginjam.mob.mobs.SpiderMob;
-import com.pluginjam.mob.mobs.ZombieMob;
+import com.pluginjam.util.Util;
+import org.bukkit.Difficulty;
 import org.bukkit.Location;
 
 import java.util.Random;
 
 public class MobSpawner {
-
     private boolean isSpawning = false;
     private final DangerManager dangerManager;
+    private Util util;
+    private Random rnd;
 
     public MobSpawner(DangerManager dangerManager) {
         this.dangerManager = dangerManager;
+        this.util = new Util();
+        this.rnd = new Random();
+    }
+    public void spawnMob(DungeonMob<?> mob, SpawnMeta spawnMeta, int level) {
+        boolean miniBoss = util.genMiniBossChance(level, rnd);
+        mob.spawn(spawnMeta);
     }
 
-    public void spawnMob(DungeonMob<?> mob, SpawnMeta spawnMeta) {
+    public void spawnRandomDungeonMob(float danger, SpawnMeta spawnMeta){
+        int level = util.dangerToMobLevel(danger, (1f + (spawnMeta.world().getDifficulty().getValue() -1f) / 4)); // Deprecated for years, but returns 1/2/3 on easy/normal/hard e.g: A(Hard) = 50% higher lvl.
 
+
+        /*
+        Witch: 3%
+        Creeper: 4%
+        Spider: 6%               -| Spider's = 10%
+        SpiderJockey: 4%  -|
+        Skeleton: 8%
+        Zombie: 10%
+        Zoglin: 2% if danger > 10. Then per danger level + 1%
+        --------------------------
+        Warden if lvl > 15
+         */
     }
 
+    /*===These functions aren't needed since we'll spawn them when pasting in the shem file===*
     public void startSpawning() {
         if (!isSpawning) {
-
             float dangerLevel = dangerManager.getDangerLevel();
-            //TODO: Implement spawning
             isSpawning = true;
         }
     }
 
     public void stopSpawning() {
         if (isSpawning) {
-            //TODO: Implement stop spawning
             isSpawning = false;
         }
     }
-
-    public void spawnPack(Class<DungeonMob<?>> dungeonMobClass, int packSize, SpawnMeta spawnMeta) {
-        Location location = spawnMeta.location();
-
-    }
-
-    //Spawns mobs based on level / difficulty. Higher level -> stronger base bosses
-    //TODO: FIX THE 2ND ARGUMENT. PRETTY SIMPLE, EH?
-    public static void spawnRandomDungeonMob(int level, Location loc){
-        Random rnd = new Random();
-        int i = rnd.nextInt(3);
-        float f = i + level / 12;
-        SpawnMeta sm = new SpawnMeta(loc);
-
-        // ugly code writen under time pressure.
-        if(f < 2) {
-            ZombieMob zombieMob = new ZombieMob(level);
-            zombieMob.spawn(sm);
-        }else if(f < 3) {
-            SpiderMob spiderMob = new SpiderMob(level);
-            spiderMob.spawn(sm);
-        }else if(f < 4) {
-            //creeperMob.spawn(sm);
-        }else if(f < 5) {
-            SpiderJockeyMob spiderJockeyMob = new SpiderJockeyMob(level);
-            spiderJockeyMob.spawn(sm);
-        }else if(f < 6) {
-            //hoglinMob.spawn(sm);
-        }else if(f < 7) {
-            //zoglinMob.spawn(sm);
-        }else if(f < 8) {
-            //wardenMob.spawn(sm)
-        }else{
-            //wardenMob.spawn(sm);
-        }
-    }
-
+       */
 }

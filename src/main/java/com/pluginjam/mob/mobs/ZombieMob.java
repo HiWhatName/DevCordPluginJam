@@ -4,8 +4,8 @@ import com.pluginjam.mob.DungeonMob;
 import org.bukkit.entity.Zombie;
 
 public class ZombieMob extends DungeonMob<Zombie> {
-    public ZombieMob(int level) {
-        super(level, Zombie.class);
+    public ZombieMob(int level, boolean miniBoss) {
+        super(level, Zombie.class, miniBoss);
     }
 
 

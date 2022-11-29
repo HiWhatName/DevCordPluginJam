@@ -10,8 +10,8 @@ import java.util.function.Consumer;
 public class SpiderMob extends DungeonMob<Spider> {
 
     private static final String DISPLAY_NAME = "Spider";
-    public SpiderMob(int level) {
-        super(level, Spider.class);
+    public SpiderMob(int level, boolean miniBoss) {
+        super(level, Spider.class, miniBoss);
     }
 
     @Override

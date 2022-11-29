@@ -6,7 +6,7 @@ import org.bukkit.entity.Warden;
 
 public class WardenMob extends DungeonMob<Warden> {
     public WardenMob(int level, Class<Warden> baseEntityClass) {
-        super(level, baseEntityClass, false);
+        super(level, baseEntityClass,  true); //A Warden should always be a miniBoss, so we'll parse true
     }
 
     @Override

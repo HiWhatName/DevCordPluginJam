@@ -11,8 +11,8 @@ public class SpiderJockeyMob extends DungeonMob<Spider> {
         return "Spider Jockey";
     }
 
-    public SpiderJockeyMob(int level) {
-        super(level, Spider.class);
+    public SpiderJockeyMob(int level, boolean miniBoss) {
+        super(level, Spider.class, miniBoss);
     }
 
     @Override
