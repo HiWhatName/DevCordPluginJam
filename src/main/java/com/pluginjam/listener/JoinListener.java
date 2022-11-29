@@ -1,6 +1,7 @@
 package com.pluginjam.listener;
 
 import com.pluginjam.PluginJam;
+import com.pluginjam.core.enchant.CustomEnchants;
 import com.pluginjam.dungeon.danger.DangerListener;
 import com.pluginjam.dungeon.generator.world.DungeonWorld;
 import com.pluginjam.util.ItemBuilder;
@@ -33,11 +34,10 @@ public class JoinListener implements Listener {
             player.playSound(player.getLocation(), Sound.BLOCK_PORTAL_TRAVEL, 0.2f, 1.0f);
             player.sendTitle(ChatColor.RED + "The more you have, the worse it is",
                 ChatColor.YELLOW + "Plugin by HiWhatName & Earomc", 7, 160, 7);
-            player.getInventory().setItem(1, new ItemBuilder(Material.STONE_PICKAXE).setName("Broken pickaxe").
+            player.getInventory().addItem(new ItemBuilder(Material.STONE_PICKAXE).setName("Broken pickaxe").
                     setLore("Used quite a bit... still seems to work fine tho").addEnchant(Enchantment.DIG_SPEED, (byte) 2).setUnbreakable(true).build());
         }
 
-        dungeonWorld.getDangerListener().getDangerBar().addPlayer(player);
 
         //Backup check if player gets spawned in the wrong dimension
         if(player.getLocation().getWorld() != dungeonWorld.getDungeonWorld()){
