@@ -1,8 +1,8 @@
 package com.pluginjam;
 
 import com.pluginjam.commands.*;
-import com.pluginjam.core.WeightManager;
-import com.pluginjam.dungeon.danger.DangerListener;
+import com.pluginjam.core.enchant.CustomEnchants;
+import com.pluginjam.core.weight.WeightManager;
 import com.pluginjam.dungeon.danger.DangerManager;
 import com.pluginjam.dungeon.generator.world.DungeonWorld;
 import com.pluginjam.listener.JoinListener;
@@ -11,7 +11,6 @@ import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.*;
 import java.util.logging.Logger;
 
 public final class PluginJam extends JavaPlugin {

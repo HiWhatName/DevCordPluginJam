@@ -1,4 +1,4 @@
-package com.pluginjam.core;
+package com.pluginjam.core.weight;
 
 import org.bukkit.Material;
 
