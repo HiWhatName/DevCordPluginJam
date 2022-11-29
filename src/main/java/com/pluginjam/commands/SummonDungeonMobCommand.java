@@ -2,6 +2,7 @@ package com.pluginjam.commands;
 
 import com.pluginjam.PluginJam;
 import com.pluginjam.mob.MobSpawner;
+import com.pluginjam.mob.SpawnMeta;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -16,17 +17,10 @@ public class SummonDungeonMobCommand implements CommandExecutor {
         //TODO: add
         if(sender instanceof Player p) {
             if(p.hasPermission("dungeon.summon")){
-                if(args.length >= 1) {
-                    if(args[0] != null) {
-                        p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
-                        p.sendMessage(ChatColor.GREEN + "Summond a dungeonmob level: " + args[0]);
-                       // MobSpawner.spawnRandomDungeonMob(Integer.parseInt(args[0]), p.getLocation());
-                    }else{
-                        return false;
-                    }
-                }else{
-                    p.sendMessage(ChatColor.YELLOW + "Missing level arg!");
-                }
+                p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
+                MobSpawner mobSpawner = new MobSpawner(PluginJam.getInstance().getDungeonWorld().getDangerManager());
+                mobSpawner.spawnRandomDungeonMob(new SpawnMeta(p.getLocation()));
+                p.sendMessage(ChatColor.GREEN + "Summond random dungeonmob");
             }else{
                 p.sendMessage(ChatColor.RED + "No permission!");
             }
