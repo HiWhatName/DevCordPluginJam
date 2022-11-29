@@ -17,7 +17,7 @@ public class LoadedWorldsCommand implements CommandExecutor {
     }
     public static String getLoadedWorlds(){
         return ChatColor.YELLOW + "List of (all) worlds with their load status: \n"
-                + ChatColor.YELLOW + " - overworld: " + ChatColor.GREEN + (Bukkit.getWorld("overworld") != null) + "\n"
+                + ChatColor.YELLOW + " - world: " + ChatColor.GREEN + (Bukkit.getWorld("world") != null) + "\n"
                 + ChatColor.YELLOW + " - the_nether: " + ChatColor.GREEN + (Bukkit.getWorld("the_nether") != null) + "\n"
                 + ChatColor.YELLOW + " - the_end: " + ChatColor.GREEN + (Bukkit.getWorld("the_end") != null) + "\n"
                 + ChatColor.YELLOW + " - dungeon: " + ChatColor.GREEN + (Bukkit.getWorld("dungeon") != null);
