@@ -20,7 +20,7 @@ public class Util {
             String[] miniBossPrefix = {"Almighty", "Ancient", "Ethereal"}; // TODO: Don't initialize these when the function gets called
             String[] miniBossSuffix = {"from hell", "of Doom", "", ""};
             return miniBossPrefix[rnd.nextInt(miniBossPrefix.length)] + " " + dungeonMob.getDisplayName() + " " +
-                    dungeonMob.getLevel() + " " + miniBossSuffix[rnd.nextInt(miniBossSuffix.length)] + " | LVL";
+                    miniBossSuffix[rnd.nextInt(miniBossSuffix.length)] + " | LVL " + dungeonMob.getLevel();
         }else{
             return dungeonMob.getDisplayName() + " | LVL" + dungeonMob.getLevel();
         }

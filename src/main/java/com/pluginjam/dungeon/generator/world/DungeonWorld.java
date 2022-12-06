@@ -31,6 +31,7 @@ public class DungeonWorld{
         dungeon.setGameRule(GameRule.DO_WEATHER_CYCLE, false);
 
         dungeon.setGameRule(GameRule.KEEP_INVENTORY, true); //IDK if we'll keep this tho.
+
         init();
 
     }

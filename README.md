@@ -1,14 +1,13 @@
 # Dungeons
 ## _The more you have, the worse it is..._
 
-**WARNING: Most of these feature still don't work**
+**----------INFO--------**
+This plugin never got finished and never will be. Nor is it in any sort of playable state!!!!
+The code has been written under extreme time pressure and shouldn't be used for learning practises. 
+**----------INFO--------**
+
 ![example workflow](https://github.com/HiWhatName/DevCordPluginJam/actions/workflows/gradle.yml/badge.svg)
-
 | **Dungeons** is a 1.1.9.2 Minecraft plugin created in the span of 48h for the "DevCord Plugin Jam"
-
-- ✨Explore vast and randomly generated cave like dungeon systems
-- ✨Find better armor and tools. Pick wisley as sometimes less is more
-- ✨Fight stronger mobs as you go
 
 ## Features
 

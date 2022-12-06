@@ -73,6 +73,10 @@ public class DangerListener implements Listener {
     public void onDangerChange(DangerChangeEvent e){
         for(Player p : Bukkit.getOnlinePlayers()){
             BarColor dangerColor;
+            if(e.getDanger() == 1){
+                dangerColor = BarColor.GREEN;
+                dangerBar.setTitle("No danger!");
+            }
             if(e.getDanger() <= 5){
                 dangerColor = BarColor.GREEN;
             }else if(e.getDanger() <= 10){
